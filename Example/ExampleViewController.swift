@@ -145,6 +145,8 @@ class ExampleViewController: UIViewController {
         // overlayView.backgroundColor = .red
         // overlayView.alpha = 0.3
         // config.overlayView = overlayView
+        
+        config.colors.assetViewBackgroundColor = .black
 
         /* Customize wordings */
         config.wordings.libraryTitle = "Gallery"

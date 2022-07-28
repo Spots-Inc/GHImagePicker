@@ -89,6 +89,7 @@ internal final class YPLibraryView: UIView {
 
         setupLayout()
         clipsToBounds = true
+        backgroundColor = YPConfig.colors.assetViewBackgroundColor
     }
 
     required init?(coder: NSCoder) {
