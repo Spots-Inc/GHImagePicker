@@ -8,10 +8,11 @@
 
 import UIKit
 
-public enum YPCropType {
+public enum YPCropType: Equatable {
     case none
     case rectangle(ratio: Double)
     case circle
+    case multiImage
 }
 
 class YPCropVC: UIViewController {

@@ -77,8 +77,8 @@ class ExampleViewController: UIViewController {
         /* Uncomment and play around with the configuration 👨‍🔬 🚀 */
 
         /* Set this to true if you want to force the  library output to be a squared image. Defaults to false */
-        // config.library.onlySquare = true
-
+        config.library.onlySquare = false
+        config.library.isSquareByDefault = false
         /* Set this to true if you want to force the camera output to be a squared image. Defaults to true */
         // config.onlySquareImagesFromCamera = false
 
@@ -87,7 +87,7 @@ class ExampleViewController: UIViewController {
         // config.targetImageSize = .cappedTo(size: 1024)
 
         /* Choose what media types are available in the library. Defaults to `.photo` */
-        config.library.mediaType = .photoAndVideo
+        config.library.mediaType = .photo
 		config.library.itemOverlayType = .grid
         /* Enables selecting the front camera by default, useful for avatars. Defaults to false */
         // config.usesFrontCamera = true
@@ -121,7 +121,7 @@ class ExampleViewController: UIViewController {
 
         /* Defines which screens are shown at launch, and their order.
            Default value is `[.library, .photo]` */
-        config.screens = [.library, .photo, .video]
+        config.screens = [.library]
 
         /* Can forbid the items with very big height with this property */
         config.library.minWidthForItem = UIScreen.main.bounds.width * 0.8
@@ -135,7 +135,7 @@ class ExampleViewController: UIViewController {
         config.video.libraryTimeLimit = 500.0
 
         /* Adds a Crop step in the photo taking process, after filters. Defaults to .none */
-        config.showsCrop = .rectangle(ratio: (16/9))
+        config.showsCrop = .multiImage
 
         /* Changes the crop mask color */
         // config.colors.cropOverlayColor = .green
@@ -185,7 +185,7 @@ class ExampleViewController: UIViewController {
         //config.library.options = options
 
         config.library.preselectedItems = selectedItems
-
+        config.library.preSelectItemOnMultipleSelection = false
 
 		// Customise fonts
 		//config.fonts.menuItemFont = UIFont.systemFont(ofSize: 22.0, weight: .semibold)

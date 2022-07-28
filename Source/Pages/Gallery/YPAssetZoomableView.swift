@@ -45,6 +45,16 @@ final class YPAssetZoomableView: UIScrollView {
         }
     }
     
+    /// Set zoom scale to fit the current image to the size of the first selected image
+    //
+    /// - Parameters:
+    ///   - cropSize: Size of the first selected image
+    public func fitImageToFirstCrop(_ cropSize: CGSize) {
+        squaredZoomScale = calculateCroppedZoomScale(for: cropSize)
+        minimumZoomScale = squaredZoomScale
+        setZoomScale(squaredZoomScale, animated: false)
+    }
+    
     /// Re-apply correct scrollview settings if image has already been adjusted in
     /// multiple selection mode so that user can see where they left off.
     public func applyStoredCropPosition(_ scp: YPLibrarySelection) {
@@ -74,7 +84,7 @@ final class YPAssetZoomableView: UIScrollView {
             
             strongSelf.videoView.setPreviewImage(preview)
             
-            strongSelf.setAssetFrame(for: strongSelf.videoView, with: preview)
+            strongSelf.setAssetFrame(for: strongSelf.videoView, with: preview.size)
 
             strongSelf.squaredZoomScale = strongSelf.calculateSquaredZoomScale()
             
@@ -101,6 +111,7 @@ final class YPAssetZoomableView: UIScrollView {
     public func setImage(_ photo: PHAsset,
                          mediaManager: LibraryMediaManager,
                          storedCropPosition: YPLibrarySelection?,
+                         firstImageSize: CGSize?,
                          completion: @escaping (Bool) -> Void,
                          updateCropInfo: @escaping () -> Void) {
         guard currentAsset != photo else {
@@ -124,9 +135,8 @@ final class YPAssetZoomableView: UIScrollView {
             }
             
             strongSelf.photoImageView.image = image
-           
-            strongSelf.setAssetFrame(for: strongSelf.photoImageView, with: image)
-                
+            strongSelf.setAssetFrame(for: strongSelf.photoImageView, with: image.size, cropSize: firstImageSize)
+            
             // Stored crop position in multiple selection
             if let scp173 = storedCropPosition {
                 strongSelf.applyStoredCropPosition(scp173)
@@ -179,7 +189,7 @@ final class YPAssetZoomableView: UIScrollView {
 
 fileprivate extension YPAssetZoomableView {
     
-    func setAssetFrame(`for` view: UIView, with image: UIImage) {
+    func setAssetFrame(`for` view: UIView, with imageSize: CGSize, cropSize: CGSize? = nil) {
         // Reseting the previous scale
         self.minimumZoomScale = 1
         self.zoomScale = 1
@@ -187,8 +197,8 @@ fileprivate extension YPAssetZoomableView {
         // Calculating and setting the image view frame depending on screenWidth
         let screenWidth = YPImagePickerConfiguration.screenWidth
         
-        let w = image.size.width
-        let h = image.size.height
+        let w = imageSize.width
+        let h = imageSize.height
 
         var aspectRatio: CGFloat = 1
         var zoomScale: CGFloat = 1
@@ -218,6 +228,10 @@ fileprivate extension YPAssetZoomableView {
         // Setting new scale
         minimumZoomScale = zoomScale
         self.zoomScale = zoomScale
+        
+        if let cropSize = cropSize {
+            fitImageToFirstCrop(cropSize)
+        }
     }
     
     /// Calculate zoom scale which will fit the image to square
@@ -229,11 +243,41 @@ fileprivate extension YPAssetZoomableView {
         var squareZoomScale: CGFloat = 1.0
         let w = image.size.width
         let h = image.size.height
-        
+
         if w > h { // Landscape
             squareZoomScale = (w / h)
         } else if h > w { // Portrait
             squareZoomScale = (h / w)
+        }
+
+        return squareZoomScale
+    }
+    
+    private func calculateCroppedZoomScale(for size: CGSize) -> CGFloat {
+        guard let image = assetImageView.image else {
+            ypLog("No image"); return 1.0
+        }
+
+        var squareZoomScale: CGFloat = 1.0
+        
+        let cropWidth = size.width
+        let cropHeight = size.height
+        
+        let imageWidth = image.size.width
+        let imageHeight = image.size.height
+
+        if cropWidth > cropHeight {
+            if imageWidth > imageHeight {
+                squareZoomScale = 1
+            } else if imageHeight > imageWidth {
+                squareZoomScale = (imageHeight / imageWidth)
+            }
+        } else if cropHeight > cropWidth {
+            if imageWidth > imageHeight {
+                squareZoomScale = (imageWidth / imageHeight)
+            } else if imageHeight > imageWidth {
+                squareZoomScale = 1
+            }
         }
         
         return squareZoomScale

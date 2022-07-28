@@ -88,7 +88,9 @@ extension YPLibraryVC {
             return
         }
 
-        let newSelection = YPLibrarySelection(index: indexPath.row, assetIdentifier: asset.localIdentifier)
+        let newSelection = YPLibrarySelection(index: indexPath.row,
+                                              assetIdentifier: asset.localIdentifier,
+                                              size: .init(width: asset.pixelWidth, height: asset.pixelHeight))
         selectedItems.append(newSelection)
         checkLimit()
     }
@@ -150,7 +152,8 @@ extension YPLibraryVC: UICollectionViewDelegate {
                                                       cropRect: currentSelection.cropRect,
                                                       scrollViewContentOffset: currentSelection.scrollViewContentOffset,
                                                       scrollViewZoomScale: currentSelection.scrollViewZoomScale,
-                                                      assetIdentifier: currentSelection.assetIdentifier)
+                                                          assetIdentifier: currentSelection.assetIdentifier,
+                                                          size: currentSelection.size)
             }
             cell.multipleSelectionIndicator.set(number: index + 1) // start at 1, not 0
         } else {

@@ -73,7 +73,7 @@ internal final class YPLibraryVC: UIViewController, YPPermissionCheckable {
                 }
                 
                 // The negative index will be corrected in the collectionView:cellForItemAt:
-                return YPLibrarySelection(index: -1, assetIdentifier: asset.localIdentifier)
+                return YPLibrarySelection(index: -1, assetIdentifier: asset.localIdentifier, size: .init(width: asset.pixelWidth, height: asset.pixelHeight))
             }
             v.assetViewContainer.setMultipleSelectionMode(on: isMultipleSelectionEnabled)
             v.collectionView.reloadData()
@@ -198,7 +198,8 @@ internal final class YPLibraryVC: UIViewController, YPPermissionCheckable {
                                        cropRect: v.currentCropRect(),
                                        scrollViewContentOffset: v.assetZoomableView.contentOffset,
                                        scrollViewZoomScale: v.assetZoomableView.zoomScale,
-                                       assetIdentifier: asset.localIdentifier)
+                                       assetIdentifier: asset.localIdentifier,
+                                       size: .init(width: asset.pixelWidth, height: asset.pixelHeight))
                 ]
             }
         } else {
@@ -305,9 +306,21 @@ internal final class YPLibraryVC: UIViewController, YPPermissionCheckable {
         DispatchQueue.global(qos: .userInitiated).async {
             switch asset.mediaType {
             case .image:
+                var firstImageSize: CGSize?
+                
+                if YPConfig.showsCrop == .multiImage,
+                   self.isMultipleSelectionEnabled {
+                    let size = self.selectedItems.first?.size ?? CGSize(width: asset.pixelWidth, height: asset.pixelHeight)
+                    firstImageSize = size
+                    self.v.resizeZoomableView(to: size)
+                } else {
+                    self.v.resizeZoomableView(to: .init(width: 1, height: 1))
+                }
+                
                 self.v.assetZoomableView.setImage(asset,
                                                   mediaManager: self.mediaManager,
                                                   storedCropPosition: self.fetchStoredCrop(),
+                                                  firstImageSize: firstImageSize,
                                                   completion: completion,
                                                   updateCropInfo: updateCropInfo)
             case .video:

@@ -190,8 +190,10 @@ internal final class YPLibraryView: UIView {
 
         assetViewContainer.top(0).fillHorizontally().heightEqualsWidth()
         self.assetViewContainerConstraintTop = assetViewContainer.topConstraint
-        assetZoomableView.fillContainer().heightEqualsWidth()
-        assetZoomableView.Bottom == collectionView.Top
+        assetZoomableView.width(bounds.width)
+        assetZoomableView.height(bounds.width)
+        assetZoomableView.centerInContainer()
+        assetViewContainer.Bottom == collectionView.Top
         assetViewContainer.sendSubviewToBack(assetZoomableView)
 
         progressView.height(5).fillHorizontally()
@@ -200,5 +202,29 @@ internal final class YPLibraryView: UIView {
         |maxNumberWarningView|.bottom(0)
         maxNumberWarningView.Top == safeAreaLayoutGuide.Bottom - 40
         maxNumberWarningLabel.centerHorizontally().top(11)
+    }
+    
+    // Change the size of the zoom view to fit that of the first selected image.
+    func resizeZoomableView(to size: CGSize) {
+        DispatchQueue.main.async {
+            let width: CGFloat
+            let height: CGFloat
+            let containerWidth = self.bounds.width
+            
+            if size.width == size.height {
+                width = containerWidth
+                height = containerWidth
+            } else if size.width > size.height {
+                width = containerWidth
+                height = (size.height / size.width) * containerWidth
+            } else {
+                width = (size.width / size.height) * containerWidth
+                height = containerWidth
+            }
+            
+            self.assetZoomableView.widthConstraint?.constant = width
+            self.assetZoomableView.heightConstraint?.constant = height
+            self.layoutIfNeeded()
+        }
     }
 }

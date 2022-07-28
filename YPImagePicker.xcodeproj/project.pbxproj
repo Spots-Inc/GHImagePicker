@@ -192,6 +192,8 @@
 		EBDDF0EB278784A900A372FD /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDDF0EA278784A900A372FD /* Array+Extensions.swift */; };
 		EBDDF0EC278784A900A372FD /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDDF0EA278784A900A372FD /* Array+Extensions.swift */; };
 		EBE6CA48210389ED005B0A6A /* CIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE6CA47210389ED005B0A6A /* CIImage+Extensions.swift */; };
+		EE8D708628832E9800804FE4 /* Stevia in Frameworks */ = {isa = PBXBuildFile; productRef = EE8D708528832E9800804FE4 /* Stevia */; };
+		EE8D708928832EA900804FE4 /* Stevia in Frameworks */ = {isa = PBXBuildFile; productRef = EE8D708828832EA900804FE4 /* Stevia */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -352,8 +354,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE8D708928832EA900804FE4 /* Stevia in Frameworks */,
 				EBA37BCD26F75BCC005DAAD4 /* Stevia in Frameworks */,
 				EBA37BD026F75C67005DAAD4 /* PryntTrimmerView in Frameworks */,
+				EE8D708628832E9800804FE4 /* Stevia in Frameworks */,
 				4500082B3B62CA66D64563BC /* Pods_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -701,6 +705,8 @@
 			packageProductDependencies = (
 				EBA37BCC26F75BCC005DAAD4 /* Stevia */,
 				EBA37BCF26F75C67005DAAD4 /* PryntTrimmerView */,
+				EE8D708528832E9800804FE4 /* Stevia */,
+				EE8D708828832EA900804FE4 /* Stevia */,
 			);
 			productName = YPIPExample;
 			productReference = EBA37B4F26F749C6005DAAD4 /* Example.app */;
@@ -723,7 +729,6 @@
 					};
 					EBA37B4E26F749C6005DAAD4 = {
 						CreatedOnToolsVersion = 12.5.1;
-						DevelopmentTeam = B3U3XRF8D7;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -765,6 +770,8 @@
 			packageReferences = (
 				EBA37BCB26F75BCC005DAAD4 /* XCRemoteSwiftPackageReference "Stevia" */,
 				EBA37BCE26F75C67005DAAD4 /* XCRemoteSwiftPackageReference "PryntTrimmerView" */,
+				EE8D708428832E9800804FE4 /* XCRemoteSwiftPackageReference "Stevia" */,
+				EE8D708728832EA900804FE4 /* XCRemoteSwiftPackageReference "Stevia" */,
 			);
 			productRefGroup = 52412A941CA6114A0073C4BE /* Products */;
 			projectDirPath = "";
@@ -1301,7 +1308,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = B3U3XRF8D7;
+				DEVELOPMENT_TEAM = C2Q7MK5HDN;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = Example/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -1311,7 +1318,7 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.yummypets.YPIPExample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gh.YPIPExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_VERSION = 5.0;
@@ -1332,7 +1339,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = B3U3XRF8D7;
+				DEVELOPMENT_TEAM = C2Q7MK5HDN;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = Example/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -1341,7 +1348,7 @@
 					"@executable_path/Frameworks",
 				);
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.yummypets.YPIPExample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gh.YPIPExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1398,6 +1405,22 @@
 				version = 4.0.2;
 			};
 		};
+		EE8D708428832E9800804FE4 /* XCRemoteSwiftPackageReference "Stevia" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/freshOS/Stevia";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		EE8D708728832EA900804FE4 /* XCRemoteSwiftPackageReference "Stevia" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/freshOS/Stevia";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1410,6 +1433,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = EBA37BCE26F75C67005DAAD4 /* XCRemoteSwiftPackageReference "PryntTrimmerView" */;
 			productName = PryntTrimmerView;
+		};
+		EE8D708528832E9800804FE4 /* Stevia */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EE8D708428832E9800804FE4 /* XCRemoteSwiftPackageReference "Stevia" */;
+			productName = Stevia;
+		};
+		EE8D708828832EA900804FE4 /* Stevia */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EE8D708428832E9800804FE4 /* XCRemoteSwiftPackageReference "Stevia" */;
+			productName = Stevia;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
